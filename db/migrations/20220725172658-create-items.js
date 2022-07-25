@@ -1,11 +1,9 @@
-"use strict";
-
+'use strict';
 const { DATE } = require("sequelize");
 const sequelize = require("sequelize");
-
 module.exports = {
     async up(queryInterface, Sequelize) {
-        await queryInterface.createTable("roles", {
+        await queryInterface.createTable("items", {
             id: {
                 type: sequelize.INTEGER,
                 autoincrement: true,
@@ -13,10 +11,15 @@ module.exports = {
                 unique: true,
                 allowNull: false,
             },
-            name: {
-                type: sequelize.STRING,
+            categories: {
+                type: sequelize.ENUM,
+                values: ['Baju', 'Sepatu', 'Elektronik'],
+                allowNull: false
             },
-            status: {
+            price: {
+                type: sequelize.INTEGER,
+            },
+            name: {
                 type: sequelize.STRING,
             },
             created_at: {
@@ -34,6 +37,6 @@ module.exports = {
     },
 
     async down(queryInterface, Sequelize) {
-        await queryInterface.dropTable("roles");
-    },
-};
+        await queryInterface.dropTable("items");
+    }
+}

@@ -1,10 +1,10 @@
 'use strict';
 const { DATE } = require("sequelize");
-const sequelize = require("sequelize");
 
+const sequelize = require('sequelize')
 module.exports = {
     async up(queryInterface, Sequelize) {
-        await queryInterface.createTable("users", {
+        await queryInterface.createTable("order", {
             id: {
                 type: sequelize.INTEGER,
                 autoincrement: true,
@@ -12,17 +12,29 @@ module.exports = {
                 unique: true,
                 allowNull: false,
             },
+            invoice: {
+                type: sequelize.INTEGER,
+            },
             name: {
                 type: sequelize.STRING,
             },
-            username: {
-                type: sequelize.STRING,
+            users_id: {
+                type: Sequelize.INTEGER,
+                references: {
+                    model: 'users',
+                    key: 'id'
+                },
+                onDelete: 'CASCADE',
+                onUpdate: 'CASCADE'
             },
-            email: {
-                type: sequelize.STRING,
-            },
-            password: {
-                type: sequelize.TEXT,
+            items_id: {
+                type: Sequelize.INTEGER,
+                references: {
+                    model: 'items',
+                    key: 'id'
+                },
+                onDelete: 'CASCADE',
+                onUpdate: 'CASCADE'
             },
             created_at: {
                 type: sequelize.DATE,
@@ -39,6 +51,6 @@ module.exports = {
     },
 
     async down(queryInterface, Sequelize) {
-        await queryInterface.dropTable("Users");
+        await queryInterface.dropTable("order");
     }
 };

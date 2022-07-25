@@ -1,4 +1,4 @@
-# PLATYPUS - Libraries Management App
+# BINGGLESHOP - Libraries Management App
 
 ## Migrations
 
