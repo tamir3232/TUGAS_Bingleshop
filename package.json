@@ -1,0 +1,27 @@
+{
+    "name": "samsol",
+    "version": "1.0.0",
+    "description": "membuat program perpustakaan",
+    "main": "index.js",
+    "scripts": {
+        "start:dev": "nodemon index.js",
+        "start": "node index.js",
+        "db:migrate": "sequelize db:migrate"
+    },
+    "keywords": [
+        "perpustakaan"
+    ],
+    "author": "tamir",
+    "license": "ISC",
+    "dependencies": {
+        "dotenv": "^16.0.1",
+        "pg": "^8.7.3",
+        "postgres": "^3.2.4",
+        "sequelize": "^6.21.3"
+    },
+    "devDependencies": {
+        "express": "^4.18.1",
+        "nodemon": "^2.0.19",
+        "sequelize-cli": "^6.4.1"
+    }
+}
