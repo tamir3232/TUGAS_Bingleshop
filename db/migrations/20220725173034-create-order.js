@@ -1,6 +1,5 @@
 'use strict';
 const { DATE } = require("sequelize");
-
 const sequelize = require('sequelize')
 module.exports = {
     async up(queryInterface, Sequelize) {
@@ -21,8 +20,8 @@ module.exports = {
             users_id: {
                 type: Sequelize.INTEGER,
                 references: {
-                    model: 'users',
-                    key: 'id'
+                    model: 'users', // nama table
+                    key: 'id' // nama column
                 },
                 onDelete: 'CASCADE',
                 onUpdate: 'CASCADE'
