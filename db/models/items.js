@@ -1,27 +1,25 @@
 const Sequelize = require('sequelize')
-
 const sequelize = require('./sequelize')
 
-class users extends Sequelize.Model {}
+class Items extends Sequelize.Model {}
 
-users.init({
+Items.init({
     id: {
         type: Sequelize.DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
         unique: true
     },
+    catagories: {
+        type: Sequelize.DataTypes.ENUM,
+        values: ['Baju', 'Sepatu', 'Elektronik'],
+        allowNull: false
+    },
+    price: {
+        type: Sequelize.DataTypes.INTEGER,
+    },
     name: {
         type: Sequelize.DataTypes.STRING,
-    },
-    username: {
-        type: Sequelize.DataTypes.STRING,
-    },
-    email: {
-        type: Sequelize.DataTypes.STRING,
-    },
-    password: {
-        type: Sequelize.DataTypes.TEXT,
     },
 }, {
     sequelize: sequelize,
@@ -32,4 +30,4 @@ users.init({
     tableName: 'users'
 })
 
-module.exports = users
+module.exports = Items
