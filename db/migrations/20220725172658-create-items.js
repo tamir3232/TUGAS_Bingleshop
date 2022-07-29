@@ -6,7 +6,7 @@ module.exports = {
         await queryInterface.createTable("items", {
             id: {
                 type: sequelize.INTEGER,
-                autoincrement: true,
+                autoIncrement: true,
                 primarykey: true,
                 unique: true,
                 allowNull: false,
@@ -26,7 +26,7 @@ module.exports = {
                 type: sequelize.DATE,
                 default: new DATE(),
             },
-            update_at: {
+            updated_at: {
                 type: sequelize.DATE,
                 default: new DATE(),
             },

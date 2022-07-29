@@ -10,7 +10,7 @@ Items.init({
         primaryKey: true,
         unique: true
     },
-    catagories: {
+    categories: {
         type: Sequelize.DataTypes.ENUM,
         values: ['Baju', 'Sepatu', 'Elektronik'],
         allowNull: false
@@ -20,6 +20,7 @@ Items.init({
     },
     name: {
         type: Sequelize.DataTypes.STRING,
+        allowNull: false,
     },
 }, {
     sequelize: sequelize,
@@ -27,7 +28,7 @@ Items.init({
     underscored: true,
     paranoid: true,
     freezeTableName: true,
-    tableName: 'users'
+    tableName: 'items'
 })
 
 module.exports = Items

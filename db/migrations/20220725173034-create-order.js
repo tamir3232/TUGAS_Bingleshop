@@ -6,7 +6,7 @@ module.exports = {
         await queryInterface.createTable("order", {
             id: {
                 type: sequelize.INTEGER,
-                autoincrement: true,
+                autoIncrement: true,
                 primarykey: true,
                 unique: true,
                 allowNull: false,
@@ -35,11 +35,18 @@ module.exports = {
                 onDelete: 'CASCADE',
                 onUpdate: 'CASCADE'
             },
+
+            price: {
+                type: sequelize.INTEGER,
+            },
+            qty: {
+                type: sequelize.INTEGER,
+            },
             created_at: {
                 type: sequelize.DATE,
                 default: new DATE(),
             },
-            update_at: {
+            updated_at: {
                 type: sequelize.DATE,
                 default: new DATE(),
             },

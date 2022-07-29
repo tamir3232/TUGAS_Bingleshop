@@ -1,6 +1,9 @@
 const { Users } = require('../db/models/index')
 const bcrypt = require('bcrypt')
+require('dotenv').config()
 const { password, username } = require('../config/config')
+const jwt = require('jsonwebtoken')
+
 
 
 const register = async(req, res, next) => {
@@ -54,7 +57,7 @@ const login = async(req, res, next) => {
                 email: bodies.email,
 
             },
-            attributes: ['password'],
+            attributes: ['password', 'id'],
 
         })
         if (!isUserExist) {
@@ -68,9 +71,14 @@ const login = async(req, res, next) => {
         if (!passcompare) {
             throw {
                 code: 400,
-                message: "Salah dek"
+                message: "Password anda salah"
             }
         }
+
+        const token = jwt.sign({ exp: Math.floor(Date.now() / 1000) + 60 * 60, id: isUserExist.id }, process.env.SECRETKEY)
+        res.header('auth-token', token).json({
+            token: token
+        })
 
         return res.status(200).json({
             code: 200,
