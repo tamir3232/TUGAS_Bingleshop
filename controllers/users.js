@@ -20,7 +20,7 @@ const register = async(req, res, next) => {
         if (isUserExist) {
             throw {
                 code: 400,
-                message: 'email udah ada bang'
+                message: 'Email Yang Di masukan sudah terpakai'
             }
         }
 

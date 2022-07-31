@@ -14,8 +14,8 @@ const Add = async(req, res, next) => {
             categories: bodies.catagories,
 
         })
-        return res.status(200).json({
-            code: 200,
+        return res.status(201).json({
+            code: 201,
             message: 'berhasil menambah barang'
         })
     } catch (error) {
@@ -35,7 +35,7 @@ const Get = async(req, res, next) => {
                 message: "tidak ada"
             }
         }
-        return res.status(200).json({
+        return res.status(302).json({
             message: 'Ditemukan',
             data: itemShow
         })
