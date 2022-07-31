@@ -42,6 +42,10 @@ order.init({
     price: {
         type: Sequelize.DataTypes.INTEGER,
     },
+    status: {
+        type: Sequelize.DataTypes.ENUM,
+        values: ['BELUM DI BAYAR', 'SUDAH DI BAYAR']
+    },
 }, {
     sequelize: sequelize,
     timestamps: true,

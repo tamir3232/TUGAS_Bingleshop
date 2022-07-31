@@ -31,6 +31,7 @@ const Pesanan = async(req, res, next) => {
             where: {
                 users_id: decode.id,
                 items_id: isItemsExist.id,
+                status: 'BELUM DI BAYAR'
             },
 
         })
@@ -42,7 +43,8 @@ const Pesanan = async(req, res, next) => {
                 users_id: decode.id,
                 items_id: isItemsExist.id,
                 qty: bodies.qty,
-                price: isItemsExist.price * bodies.qty
+                price: isItemsExist.price * bodies.qty,
+                status: "BELUM DI BAYAR"
             })
             return res.status(200).json({
                 code: 200,
@@ -53,31 +55,44 @@ const Pesanan = async(req, res, next) => {
                     users_id: order.users_id,
                     items_id: order.items_id,
                     qty: order.qty,
-                    price: order.price
+                    price: order.price,
+                    status: 'BELUM DI BAYAR'
                 }
             })
         }
 
 
-        Order.update({
+        await Order.update({
             qty: orderExist.qty + (bodies.qty),
             price: orderExist.price + (isItemsExist.price * bodies.qty)
         }, {
             where: {
                 items_id: orderExist.items_id,
-
             }
         })
         return res.status(200).json({
             code: 200,
-            message: orderExist.id
+            message: "Pesanan sudah di tambah",
+            data: {
+                invoice: orderExist.invoice,
+                name: orderExist.name,
+                users_id: orderExist.users_id,
+                items_id: orderExist.items_id,
+                qty: orderExist.qty,
+                price: orderExist.price,
+                status: 'BELUM DI BAYAR'
+            }
         })
     } catch (error) {
         next(error)
     }
 }
+
+
+
 const bayar = async(req, res, next) => {
     try {
+        const bodies = req.body
         const token = req.header('auth-token')
         const decode = jwtDecode(token)
 
@@ -86,18 +101,57 @@ const bayar = async(req, res, next) => {
                 users_id: decode.id,
             },
         })
-        if (orderExist) {
+        if (!orderExist) {
             throw {
                 code: 400,
-                message: orderExist
+                message: "Tidak ada item yang di pesan"
             }
         }
+        const updatedata = await Order.update({
+            status: 'SUDAH DI BAYAR'
+        }, {
+            where: {
+                users_id: decode.id,
+                items_id: bodies.item_Id,
+            }
+        })
 
+        return res.status(200).json({
+            code: 200,
+            message: orderExist,
 
+        })
     } catch (error) {
         next(error)
     }
 }
 
 
-module.exports = { Pesanan, bayar }
+const getOrder = async(req, res, next) => {
+    try {
+        const bodies = req.body
+        const token = req.header('auth-token')
+        const decode = jwtDecode(token)
+        const orderExist = await Order.findAll({
+            where: {
+                users_id: decode.id,
+            },
+        })
+        if (!orderExist) {
+            throw {
+                code: 400,
+                message: "Tidak ada item yang di pesan"
+            }
+        }
+        return res.status(200).json({
+            code: 200,
+            message: orderExist,
+
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
+
+module.exports = { Pesanan, bayar, getOrder }

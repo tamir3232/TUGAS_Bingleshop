@@ -18,7 +18,7 @@ module.exports = {
                 type: sequelize.STRING,
             },
             users_id: {
-                type: Sequelize.INTEGER,
+                type: sequelize.INTEGER,
                 references: {
                     model: 'users', // nama table
                     key: 'id' // nama column
@@ -27,7 +27,7 @@ module.exports = {
                 onUpdate: 'CASCADE'
             },
             items_id: {
-                type: Sequelize.INTEGER,
+                type: sequelize.INTEGER,
                 references: {
                     model: 'items',
                     key: 'id'
@@ -41,6 +41,10 @@ module.exports = {
             },
             qty: {
                 type: sequelize.INTEGER,
+            },
+            status: {
+                type: sequelize.ENUM,
+                values: ['BELUM DI BAYAR', 'SUDAH DI BAYAR']
             },
             created_at: {
                 type: sequelize.DATE,
